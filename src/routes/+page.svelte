@@ -5,10 +5,11 @@
     import {page} from "$app/stores"
     import { fade, scale } from "svelte/transition";
     import {joinRoom, selfId} from 'trystero'
+    //import * as Trystero from 'trystero';
+    //const Trystero = require('trystero')
     import { onMount } from 'svelte';
     import Prando from 'prando';
     
-    $:console.log($page)
     
 
     
