@@ -7,7 +7,6 @@
     import {joinRoom, selfId} from 'trystero'
     import { onMount } from 'svelte';
     import Prando from 'prando';
-    import Icon from "$lib/assets/icon.png"
     
     $:console.log($page)
     
