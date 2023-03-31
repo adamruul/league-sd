@@ -1,0 +1,45 @@
+<html>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+  <body>
+    <button id="sayHello" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+        Say Hello
+    </button>
+    <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+        Leave
+    </button>
+  </body>
+  <script type="module">
+    import {joinRoom, selfId} from 'https://cdn.skypack.dev/trystero'
+    const config = {appId: 'league-sd'}
+    console.log("Joining Room: " + location.hash);
+    const room = joinRoom(config, location.hash) // Create room based on URI
+    console.log("Joined Room: " + location.hash); // The #-part of the URL
+    room.onPeerJoin(peerId => console.log(`${peerId} joined`))
+    room.onPeerLeave(peerId => console.log(`${peerId} left`))
+    console.log("selfId: " + selfId)
+    const [sendHello, getHello] = room.makeAction('hello')
+
+    // buy drink for a friend
+    //sendDrink({drink: 'negroni', withIce: true}, friendId)
+
+    // buy round for the house (second argument omitted)
+    sendHello({"sender": "lol"})
+
+    // listen for drinks sent to you
+    getHello((data, peerId) =>
+        console.log(`${peerId} says Hello!`)
+        /*
+        console.log(
+            `got a ${data.drink} with${data.withIce ? '' : 'out'} ice from ${peerId}`
+        )*/
+    )
+
+    // room.leave()
+    document.getElementById("sayHello").addEventListener("click", sayHello);
+    function sayHello() {
+        console.log("sayHello")
+        sendHello({"sender": "lol"})
+    }
+  </script>
+</html>
